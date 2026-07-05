@@ -3,7 +3,7 @@ package hououji.astrolukjam;
 public interface Constants {
     //										  0    1    2    3    4
     public static String[] elements = new String[]{"木","火","土","金","水"} ;
-    public static String[] skys = new String[]{"甲","乙","丙","丁","戊","己","庚","辛","壬","癸", ""} ;
+    public static String[] skys = new String[]{"甲","乙","丙","丁","戊","己","庚","辛","壬","癸", "\u25EF"} ;
     public static int[] skysEle = new int[]{0,0,1,1,2,2,3,3,4,4, -1} ;
     public static int[] sky2ground = new int[]{2,4,5,7,5,7,8,10,11,1} ;
     public static int[] sky2lead1 = new int[]{2,0,11,11,2,0,2,6,5,5} ;

@@ -824,7 +824,7 @@ public class LukJamGraph implements  Constants{
 //		for(int i=0;i<12;i++) {
 //			System.out.println(grounds[i] + " " + grounds[punish[i]]);
 //		}
-        LukJamGraph ly = new LukJamGraph() ;
+    	AstroTextOutput ly = new AstroTextOutput() ;
         Date spring = sdf.parse("20260320 224800");
         ly.setDate(spring) ;
 //        ly.threePass = new int[]{-1,-1,-1} ;
@@ -852,5 +852,8 @@ public class LukJamGraph implements  Constants{
             }
             System.out.println();
         }
+        
+        ly.output() ;
+        ly.print();
     }
 }
