@@ -71,6 +71,7 @@ public class LukJamGraph implements  Constants{
     public int threePass[] = new int[]{-1,-1,-1} ;
 
     public String resultSevenBodies[] = new String[7] ;
+    public int resultSevenBodiesCastle[] = new int[7] ;
 
     String name = "" ;
 
@@ -153,8 +154,10 @@ public class LukJamGraph implements  Constants{
             int deg = ((int)xp[0]) % 30 ;
             int min = (int)((xp[0] - (int)xp[0]) * 60) ;
             int castle = (int)(xp[0] / 30) ;
-            resultSevenBodies[j] = sevenBodyName[j] + "  " + padleft(""+deg,"0", 2)
+            resultSevenBodies[j] = sevenBodyName[j] +  padleft(""+deg,"0", 2)
                     +grounds[get12(10 - castle)] + padleft(""+min, "0", 2) ;
+            resultSevenBodiesCastle[j] = get12(10 - castle) ;
+            
         }
 
         long hourRemain = ((date.getTime() - first60Day.getTime()) % dayLong) ;
@@ -678,11 +681,13 @@ public class LukJamGraph implements  Constants{
         return rels[diff] ;
     }
 
-    String result[];
-    public String[] getResult() {
-        result = new String[6 * 14] ;
+    String result[][] ;
+    public String[][] getResult() {
+        result = new String[13][6] ;
         for(int i=0; i<result.length;i++) {
-            result[i] = "　" ;
+        	for(int j=0; j<result[i].length ; j++) {
+        		result[i][j] = "　" ;
+        	}
         }
 
         setSky(1,8) ;
@@ -753,7 +758,10 @@ public class LukJamGraph implements  Constants{
      *  6  7  8  9 10 11
      */
     private void setString(int x, int y, String s) {
-        result[y*6 + x] = s ;
+//        result[y*6 + x] = s ;
+    	for(int i=0; i<s.length() ; i++) {
+    		result[y][x+i] = s.charAt(i)  + "";
+    	}
     }
 
     private static int get10(int i) {
@@ -845,13 +853,14 @@ public class LukJamGraph implements  Constants{
         	System.out.println(ly.resultSevenBodies[i]) ;
         }
         
-        String result[] = ly.getResult() ;
-        for(int i=0; i<14; i++) {
-            for(int j=0;j<6;j++){
-                System.out.print(result[i*6+j]) ;
-            }
-            System.out.println();
+        String result[][] = ly.getResult() ;
+        for(int i=0; i<result.length; i++) { // y
+        	for(int j=0; j<result[i].length; j++) { //x
+        		System.out.print(result[i][j]) ;
+        	}
+        	System.out.println();
         }
+       
         
         ly.output() ;
         ly.print();

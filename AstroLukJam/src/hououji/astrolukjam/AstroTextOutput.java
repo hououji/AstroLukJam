@@ -1,11 +1,46 @@
 package hououji.astrolukjam;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AstroTextOutput extends LukJamGraph {
 	AstroTextCastle o [] = new AstroTextCastle[12] ;
-	List<String> output = new ArrayList<String>() ;
+//	List<String> output = new ArrayList<String>() ;
+	String output[][] = new String[33][33]; // [y][x], [0][0] is Left-top
+	
+	public void printH(int y, int x, String s) {
+		int col = 0;
+		for(int i=0; i<s.length(); i++) {
+			char ch = s.charAt(i)  ;
+			if(col % 2 == 0) {
+				output[y][x+col/2] = "" ;
+			}
+			output[y][x+col/2] += (ch + "");
+			if(  ch >= 0 && ch <= 127  ) {
+				col = col + 1 ;
+			}else {
+				col = col + 2 ;
+			}
+		}
+	}
+
+	public void print(int y, int x, String[][] s) {
+		for(int i=0; i<s.length ;i++) { // y
+			for(int j=0; j<s[i].length; j++) { //x
+				output[y+i][x+j] = s[i][j] ;
+			}
+		}
+	}
+	
+	public void printClean(int y, int x, int hieght, int width) {
+		for(int i=0;i<hieght; i++) {
+			for(int j=0;j<width; j++) {
+				output[y+i][x+j] = "\u3000" ;
+			}
+		}
+	}
+	
 	public void output() {
 		for(int i = 0 ; i<o.length; i++) {
 			o[i] = new AstroTextCastle() ;
@@ -39,6 +74,13 @@ public class AstroTextOutput extends LukJamGraph {
 			if(monthlead == skyPlane[i]) {
 				o[i].lead = "月將" ; 
 			}
+			
+			for(int j=0; j<this.resultSevenBodiesCastle.length; j++ ) {
+				if(this.resultSevenBodiesCastle[j] == skyPlane[i]) {
+					o[i].sevenBodies.add(makeSevenBodyStr(this.resultSevenBodies[j])) ;
+				}
+					
+			}
 			// TODO status
 			
 			
@@ -46,30 +88,61 @@ public class AstroTextOutput extends LukJamGraph {
 			o[i].make() ;
 		}
 		
-		String line = "＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃" ;
-		String emptyLine = "\u3000\u3000\u3000\u3000\u3000\u3000\u3000" ;
-		String line2 = "＃"+emptyLine+"＃"+emptyLine+"＃" ;
-		output.add(line) ;
-		for(int y=0;y<o[0].output[0].length; y++) {
-			output.add(o[5].exportLine(y) + "＃" + o[6].exportLine(y) + "＃" + o[7].exportLine(y) + "＃" + o[8].exportLine(y)) ;
+		
+		for(int i=0; i<output.length; i ++) {
+			for(int j=0; j<output[i].length ; j++) {
+				output[j][i] = "＃" ;
+			}
 		}
-		output.add(line) ;
-		for(int y=0;y<o[0].output[0].length; y++) {
-			output.add(o[4].exportLine(y) + "＃" +emptyLine + "\u3000" + emptyLine + "＃" + o[9].exportLine(y)) ;
-		}
-		output.add("＃＃＃＃＃＃＃＃" + emptyLine + emptyLine + "\u3000" + "＃＃＃＃＃＃＃＃") ;
-		for(int y=0;y<o[0].output[0].length; y++) {
-			output.add(o[3].exportLine(y) + "＃" +emptyLine + "\u3000" + emptyLine + "＃" + o[10].exportLine(y)) ;
-		}
-		output.add(line) ;
-		for(int y=0;y<o[0].output[0].length; y++) {
-			output.add(o[2].exportLine(y) + "＃" + o[1].exportLine(y) + "＃" + o[0].exportLine(y) + "＃" + o[11].exportLine(y)) ;
-		}
-		output.add(line) ;
+		
+		print(25,17, o[0].output) ;
+		print(25,9, o[1].output) ;
+		print(25,1, o[2].output) ;
+		print(17,1, o[3].output) ;
+		print(9,1, o[4].output) ;
+		print(1,1, o[5].output) ;
+		print(1,9, o[6].output) ;
+		print(1,17, o[7].output) ;
+		print(1,25, o[8].output) ;
+		print(9,25, o[9].output) ;
+		print(17,25, o[10].output) ;
+		print(25,25, o[11].output) ;
+
+		printClean(9,9,15,15) ;
+		printH(9,9, toFullWidthNumber(new SimpleDateFormat("yyyy-MM-dd").format(this.date)) );
+		printH(10,9, toFullWidthNumber(new SimpleDateFormat("HH:mm").format(this.date))) ;
+		print(11, 13, this.getResult()) ;
 	}
+	
+	private String makeSevenBodyStr(String org) {
+		//sample 月20戌32, is 20 degree, and 32 is minutes 
+		return toFullWidthNumber(org.substring(0,3)) ;
+	}
+	public static String toFullWidthNumber(String input) {
+        if (input == null) return null;
+        
+        char[] chars = input.toCharArray();
+        String half = ":-" ;
+        String full = "\uFF1a—" ;
+        for (int i = 0; i < chars.length; i++) {
+            // 半形數字的範圍在 '0' (48) 到 '9' (57)
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                chars[i] = (char) (chars[i] + 65248);
+            }
+            int idx = half.indexOf(chars[i]) ;
+            if(idx >=0) {
+            	chars[i] = full.charAt(idx) ;
+            }
+        }
+        return new String(chars);
+    }
+	
 	public void print() {
-		for (String s : output) {
-			System.out.println(s);
+		for(int i=0; i<output.length; i ++) { // y
+			for(int j=0; j<output[i].length ; j++) { // x
+				System.out.print(output[i][j]);
+			}
+			System.out.println();
 		}
 	}
 }
@@ -90,14 +163,15 @@ class AstroTextCastle{
 	String threePass = "" ; // eg 初中末 
 	String status = "" ; // eg 賊/尅
 	String lead = "" ; // EG 月將
+	List<String> sevenBodies= new ArrayList<String>() ;
 	
-	public String exportLine(int y) {
-		String line = "" ;
-		for(int x=0; x<output[y].length; x++) {
-			line = line + output[y][x] ;
-		}
-		return line;
-	}
+//	public String exportLine(int y) {
+//		String line = "" ;
+//		for(int x=0; x<output[y].length; x++) {
+//			line = line + output[y][x] ;
+//		}
+//		return line;
+//	}
 	
 	protected void make() {
 		print(0,6,sky) ;
@@ -105,7 +179,10 @@ class AstroTextCastle{
 		print(0,4,fourChpaterPassive) ;
 		print(0,3,threePass) ;
 		print(0,2,status) ;
-		print(0,1,lead) ;
+//		print(0,1,lead) ;
+		for(int i=0; i<this.sevenBodies.size(); i++) {
+			print(4, 6-i, this.sevenBodies.get(i)) ;
+		}
 		
 	}
 	
