@@ -33,6 +33,12 @@ public class AstroTextOutput extends LukJamGraph {
 		}
 	}
 	
+//	public void print (int y, int x, String s) {
+//		for(int i=0; i<s.length() ;i ++) {
+//			output[y][x+i] = s.charAt(i) + "" ;
+//		}
+//	}
+	
 	public void printClean(int y, int x, int hieght, int width) {
 		for(int i=0;i<hieght; i++) {
 			for(int j=0;j<width; j++) {
@@ -109,9 +115,18 @@ public class AstroTextOutput extends LukJamGraph {
 		print(25,25, o[11].output) ;
 
 		printClean(9,9,15,15) ;
-		printH(9,9, toFullWidthNumber(new SimpleDateFormat("yyyy-MM-dd").format(this.date)) );
-		printH(10,9, toFullWidthNumber(new SimpleDateFormat("HH:mm").format(this.date))) ;
-		print(11, 13, this.getResult()) ;
+		printH(10,11, toFullWidthNumber(new SimpleDateFormat("yyyy-MM-dd").format(this.date)) );
+		printH(11,11, toFullWidthNumber(new SimpleDateFormat("HH:mm").format(this.date))) ;
+		
+		//四柱
+		String timeStr = "" ;
+		for(int i=0; i<eight.length; i++) {
+			timeStr += skys[get10(eight[i])] + grounds[get12(eight[i])] ;
+			timeStr += "\u3000" ;
+		}
+		printH(13,11, toFullWidthNumber(timeStr)) ;
+		 
+		print(15, 11, this.getResult()) ;
 	}
 	
 	private String makeSevenBodyStr(String org) {

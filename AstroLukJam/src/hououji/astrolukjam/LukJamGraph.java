@@ -457,7 +457,7 @@ public class LukJamGraph implements  Constants{
 
     }
 
-    private void secondJudge(List<Integer> chapters, int day) {
+    protected void secondJudge(List<Integer> chapters, int day) {
         List<Integer> result = new ArrayList<Integer>() ;
         for(int chapter : chapters) {
             if((day % 2) == (fourChapter[chapter][1] % 2)) {
@@ -620,7 +620,7 @@ public class LukJamGraph implements  Constants{
 
     }
 
-    private boolean sameHardSameSeason(List<Integer> maxChapters, int day) {
+    protected boolean sameHardSameSeason(List<Integer> maxChapters, int day) {
 
         boolean allTheSame = true;
         for(int i=0; i<maxChapters.size(); i++) {
@@ -654,20 +654,20 @@ public class LukJamGraph implements  Constants{
         return false ;
     }
 
-    private void normalPass() {
+    protected void normalPass() {
         if(threePass[0] == -1) return ;
         threePass[1] = skyPlane[threePass[0]] ;
         threePass[2] = skyPlane[threePass[1]] ;
     }
 
-    private boolean isMutualHard(int a, int b){
+    protected boolean isMutualHard(int a, int b){
         return isHard(a,b) || isHard(b,a) ;
     }
-    private boolean isHard(int a, int b) {
+    protected boolean isHard(int a, int b) {
         if(a == -1 || b == -1) return false;
         return ((b-a+5)%5) == 2 ;
     }
-    private boolean isHard(int a, int b, boolean isNormal) {
+    protected boolean isHard(int a, int b, boolean isNormal) {
         if(isNormal) {
             return isHard(a,b) ;
         }else{
@@ -676,29 +676,33 @@ public class LukJamGraph implements  Constants{
     }
 
     String rels[] = new String[]{"兄","父","官","財","子"} ;
-    private String getRelation(int day, int pass) {
+    protected String getRelation(int day, int pass) {
         int diff = (day - pass + 5) % 5 ;
         return rels[diff] ;
     }
 
     String result[][] ;
     public String[][] getResult() {
-        result = new String[13][6] ;
+        result = new String[6][11] ;
         for(int i=0; i<result.length;i++) {
         	for(int j=0; j<result[i].length ; j++) {
-        		result[i][j] = "　" ;
+        		result[i][j] = "\u3000" ;
         	}
         }
 
-        setSky(1,8) ;
-        setSkyPlaneLead(0,7) ;
-        setFourChapter(1,4) ;
-        setThreePass(1,0) ;
+
+        
+        setSkyPlaneLead(0,0) ;
+        setSky(1,1) ;
+        
+        setThreePass(7,0) ;
+        setFourChapter(7,4) ;
+        
 
         return result ;
     }
 
-    private void setThreePass(int x, int y) {
+    protected void setThreePass(int x, int y) {
         for(int i=0; i<3; i++) {
             setString(x  , y+i, getRelation( skysEle[fourChapter[0][0]], groundsEle[threePass[i]] ) ) ;
             setString(x+1, y+i, skys[cycleGround2Sky[threePass[i]]]) ;
@@ -711,7 +715,7 @@ public class LukJamGraph implements  Constants{
 //		setString(x+0, y+2, grounds[threePass[2]]) ;
     }
 
-    private void setSkyPlaneLead(int x, int y) {
+    protected void setSkyPlaneLead(int x, int y) {
         setString(x+3, y+5, gods[skyPlanelead[0]]) ;
         setString(x+2, y+5, gods[skyPlanelead[1]]) ;
         setString(x+1, y+5, gods[skyPlanelead[2]]) ;
@@ -726,7 +730,7 @@ public class LukJamGraph implements  Constants{
         setString(x+4, y+5, gods[skyPlanelead[11]]) ;
     }
 
-    private void setFourChapter(int x,int y) {
+    protected void setFourChapter(int x,int y) {
         setString(x+3,y+1,skys[fourChapter[0][0]]) ;
         setString(x+3,y+0,grounds[fourChapter[0][1]]) ;
         setString(x+2,y+1,grounds[fourChapter[1][0]]) ;
@@ -737,7 +741,7 @@ public class LukJamGraph implements  Constants{
         setString(x+0,y+0,grounds[fourChapter[3][1]]) ;
     }
 
-    private void setSky(int x, int y) {
+    protected void setSky(int x, int y) {
         setString(x+2,y+3,grounds[skyPlane[0]]) ;
         setString(x+1,y+3,grounds[skyPlane[1]]) ;
         setString(x+0,y+3,grounds[skyPlane[2]]) ;
@@ -757,23 +761,23 @@ public class LukJamGraph implements  Constants{
      *  0  1  2  3  4  5
      *  6  7  8  9 10 11
      */
-    private void setString(int x, int y, String s) {
+    protected void setString(int x, int y, String s) {
 //        result[y*6 + x] = s ;
     	for(int i=0; i<s.length() ; i++) {
     		result[y][x+i] = s.charAt(i)  + "";
     	}
     }
 
-    private static int get10(int i) {
+    protected static int get10(int i) {
         return ((i % 10) + 20) % 10 ;
     }
-    private static int get12(int i) {
+    protected static int get12(int i) {
         return ((i % 12) + 24) % 12 ;
     }
-    private static int get24(int i) {
+    protected static int get24(int i) {
         return ((i % 24) + 48) % 24 ;
     }
-    private static int get60(int i) {
+    protected static int get60(int i) {
         return ((i % 60) + 120) % 60 ;
     }
 
