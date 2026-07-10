@@ -6,9 +6,9 @@ public interface Constants {
     public static String[] skys = new String[]{"甲","乙","丙","丁","戊","己","庚","辛","壬","癸", "\u25EF"} ;
     public static int[] skysEle = new int[]{0,0,1,1,2,2,3,3,4,4, -1} ;
     public static int[] sky2ground = new int[]{2,4,5,7,5,7,8,10,11,1} ;
-    public static int[] sky2lead1 = new int[]{2,0,11,11,2,0,2,6,5,5} ;
-    public static int[] sky2lead2 = new int[]{7,8,9,9,7,8,7,2,3,3} ;
-    //										  0   1   2     3         4    5    6    7         8    9    10   11
+    public static int[] sky2lead1 = new int[]{1,0,11,11,1,0,1,6,5,5} ;
+    public static int[] sky2lead2 = new int[]{7,8,9, 9, 7,8,7,2,3,3} ;
+    //										       0   1   2     3         4    5    6    7      8    9    10   11
     public static String[] grounds = new String[]{"子","丑","寅","卯",    "辰","巳","午","未",     "申","酉","戌","亥"} ;
     public static int[] groundsEle = new int[]{4,2,0,0,  2,1,1,2,  3,3,2,4} ;
     public static int[] ground2skyA = new int[]{10,9,0,10,   1, 2, 10, 3,   6, 10, 7,8 } ; // must use with the skyEle

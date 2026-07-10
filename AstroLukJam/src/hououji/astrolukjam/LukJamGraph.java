@@ -857,16 +857,16 @@ public class LukJamGraph implements  Constants{
         	System.out.println(ly.resultSevenBodies[i]) ;
         }
         
-        String result[][] = ly.getResult() ;
-        for(int i=0; i<result.length; i++) { // y
-        	for(int j=0; j<result[i].length; j++) { //x
-        		System.out.print(result[i][j]) ;
-        	}
-        	System.out.println();
-        }
+//        String result[][] = ly.getResult() ;
+//        for(int i=0; i<result.length; i++) { // y
+//        	for(int j=0; j<result[i].length; j++) { //x
+//        		System.out.print(result[i][j]) ;
+//        	}
+//        	System.out.println();
+//        }
        
         
         ly.output() ;
-        ly.print();
+        System.out.println(ly.getString());
     }
 }

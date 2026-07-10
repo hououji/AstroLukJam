@@ -48,6 +48,9 @@ public class AstroTextOutput extends LukJamGraph {
 	}
 	
 	public void output() {
+		
+		this.getResult() ;
+		
 		for(int i = 0 ; i<o.length; i++) {
 			o[i] = new AstroTextCastle() ;
 			o[i].sky = skys[cycleGround2Sky[skyPlane[i]]] + 
@@ -159,6 +162,18 @@ public class AstroTextOutput extends LukJamGraph {
 			}
 			System.out.println();
 		}
+	}
+	
+	public String getString() {
+		StringBuffer sb = new StringBuffer() ;
+		for(int i=0; i<output.length; i ++) { // y
+			for(int j=0; j<output[i].length ; j++) { // x
+				//System.out.print(output[i][j]);
+				sb.append(output[i][j]) ;
+			}
+			sb.append("\r\n") ;
+		}
+		return sb.toString() ;
 	}
 }
 class AstroTextCastle{

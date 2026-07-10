@@ -10,11 +10,11 @@ public class HououjiLogger {
     public void debug(String s) {
 
 //        Log.d(TAG,s ) ;
-        System.out.println("DEBUG " + TAG + ":" +s) ;
+        //System.out.println("DEBUG " + TAG + ":" +s) ;
     }
 
     public void warn(String s) {
 //        Log.w(TAG,s);
-        System.out.println("DEBUG " + TAG + ":" +s) ;
+       // System.out.println("DEBUG " + TAG + ":" +s) ;
     }
 }
